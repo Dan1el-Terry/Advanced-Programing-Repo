@@ -1,0 +1,40 @@
+<Window x:Class="MovieLibraryApp.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Movie Library Management" Height="600" Width="900">
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Search Section -->
+        <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+            <TextBox x:Name="SearchTextBox" Width="200" Margin="0,0,10,0" PlaceholderText="Search Title"/>
+            <Button Content="Search" Width="100" Click="SearchButton_Click"/>
+            <Button Content="Sort by Title" Width="120" Margin="10,0,0,0" Click="SortTitleButton_Click"/>
+            <Button Content="Sort by Release Year" Width="140" Margin="10,0,0,0" Click="SortYearButton_Click"/>
+        </StackPanel>
+
+        <!-- Movie Data Grid -->
+        <DataGrid x:Name="MoviesDataGrid" Grid.Row="1" AutoGenerateColumns="False" IsReadOnly="True">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="ID" Binding="{Binding MovieID}" Width="Auto"/>
+                <DataGridTextColumn Header="Title" Binding="{Binding Title}" Width="*"/>
+                <DataGridTextColumn Header="Director" Binding="{Binding Director}" Width="*"/>
+                <DataGridTextColumn Header="Genre" Binding="{Binding Genre}" Width="*"/>
+                <DataGridTextColumn Header="Year" Binding="{Binding ReleaseYear}" Width="Auto"/>
+                <DataGridTextColumn Header="Available" Binding="{Binding IsAvailable}" Width="Auto"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <!-- Borrow/Return Section -->
+        <StackPanel Orientation="Horizontal" Grid.Row="2" Margin="0,10,0,0">
+            <TextBox x:Name="MovieIDTextBox" Width="100" PlaceholderText="Movie ID"/>
+            <TextBox x:Name="UserTextBox" Width="150" Margin="10,0,0,0" PlaceholderText="User Name"/>
+            <Button Content="Borrow" Width="100" Margin="10,0,0,0" Click="BorrowButton_Click"/>
+            <Button Content="Return" Width="100" Margin="10,0,0,0" Click="ReturnButton_Click"/>
+        </StackPanel>
+    </Grid>
+</Window>
