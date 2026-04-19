@@ -1,23 +1,48 @@
-﻿using System.Text;
+﻿using System.Collections.ObjectModel;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using MovieLibraryApp.Models;
 
-namespace MovieLibraryApp;
-
-/// <summary>
-/// Interaction logic for MainWindow.xaml
-/// </summary>
-public partial class MainWindow : Window
+namespace MovieLibraryApp
 {
-    public MainWindow()
+    public partial class MainWindow : Window
     {
-        InitializeComponent();
+        private MovieManager manager = new MovieManager();
+        private ObservableCollection<Movie> movies = new ObservableCollection<Movie>();
+
+        public MainWindow()
+        {
+            InitializeComponent();
+            MovieGrid.ItemsSource = movies;
+        }
+
+        private void AddMovie_Click(object sender, RoutedEventArgs e)
+        {
+            // Send data to backend (NO ID here anymore)
+            var movie = manager.AddMovie(
+                TitleBox.Text,
+                DirectorBox.Text,
+                GenreBox.Text,
+                int.TryParse(YearBox.Text, out int y) ? y : 0
+            );
+
+            // Update UI list
+            RefreshGrid();
+
+            // Clear inputs
+            TitleBox.Clear();
+            DirectorBox.Clear();
+            GenreBox.Clear();
+            YearBox.Clear();
+        }
+
+        private void RefreshGrid()
+        {
+            movies.Clear();
+
+            foreach (var m in manager.GetAllMovies())
+            {
+                movies.Add(m);
+            }
+        }
     }
 }

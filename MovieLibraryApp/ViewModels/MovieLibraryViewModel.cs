@@ -59,7 +59,6 @@ namespace MovieLibraryApp.ViewModels
                 {
                     // Assign to next user in queue
                     var nextUser = BorrowQueues[movieID].Dequeue();
-                    // Notify user (placeholder)
                     Console.WriteLine($"Movie assigned to {nextUser}");
                 }
                 else

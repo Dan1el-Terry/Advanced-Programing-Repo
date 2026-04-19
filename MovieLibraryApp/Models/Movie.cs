@@ -1,5 +1,3 @@
-using System;
-
 namespace MovieLibraryApp.Models
 {
     public class Movie
